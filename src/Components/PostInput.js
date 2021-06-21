@@ -5,7 +5,12 @@ import { FaRegCalendarCheck } from "react-icons/fa";
 import { RiArticleLine } from "react-icons/ri";
 import FeedItemIcons from './FeedItemIcons';
 import Post from './Post';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux';
+import firebase from "firebase";
+import { db } from './firebase';
+import { selectUser } from '../features/counter/userSlice';
+
 
 
 
@@ -13,8 +18,36 @@ import React, { useState } from 'react'
 
 function PostInput() {
   const [posts, setPosts] = useState([]);
-
   const [input, setInput] = useState("");
+  // const user = useSelector(selectUser)
+
+  useEffect(() => {
+    db.collection("posts")
+      .orderBy("timestamp", "desc")
+      .onSnapshot((snapshot) =>
+        setPosts(
+          snapshot.docs.map((doc) => ({
+            id: doc.id,
+            data: doc.data(),
+          }))
+        )
+      );
+  }, []);
+
+  const sendPost = (e) => {
+    e.preventDefault();
+  
+    db.collection("posts").add({
+      name: "user.displayName",
+      description: "user.email",
+      message: input,
+      photoUrl: "",
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      
+    });
+  
+    setInput("");
+  };
   
   
     return (
@@ -26,7 +59,7 @@ function PostInput() {
                 <div className="">
             <form className="">
                 <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Start a post!"  className="   border-none flex-grow ml-2 pr-48 outline-none font-medium text cursor-pointer  group-hover:bg-gray-100 transition delay-50 " />
-                <button className="hidden" type="submit" >Send</button>
+                <button className="hidden" onClick={sendPost}  type="submit" >Send</button>
             </form>
             </div>
             </div>
@@ -45,7 +78,18 @@ function PostInput() {
             />
           </div>
         </div>
-        <Post/> 
+        {posts.map(
+            ({ id, data: { name, description, message, photoUrl } }) => (
+              <Post
+                key={id}
+                name={name}
+                description={description}
+                message={message}
+                photoUrl={photoUrl}
+              />
+            )
+          )}
+
         
 
         
