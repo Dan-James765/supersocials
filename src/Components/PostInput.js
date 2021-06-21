@@ -6,10 +6,10 @@ import { RiArticleLine } from "react-icons/ri";
 import FeedItemIcons from './FeedItemIcons';
 import Post from './Post';
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+
 import firebase from "firebase";
 import { db } from './firebase';
-import { selectUser } from '../features/counter/userSlice';
+
 
 
 
@@ -19,7 +19,7 @@ import { selectUser } from '../features/counter/userSlice';
 function PostInput() {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
-  // const user = useSelector(selectUser)
+
 
   useEffect(() => {
     db.collection("posts")
