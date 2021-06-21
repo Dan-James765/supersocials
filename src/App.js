@@ -1,7 +1,9 @@
 import React from 'react';
 import Feed from './Components/Feed';
 import Header from './Components/Header';
+
 import Sidebar from './Components/Sidebar';
+import Post from './Components/Post';
 
 function App() {
   return (
@@ -12,6 +14,10 @@ function App() {
     <div className="flex">
     <Sidebar/> 
     <Feed/> 
+   
+    
+    
+    
     </div>
 
     

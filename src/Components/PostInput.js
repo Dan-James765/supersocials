@@ -1,12 +1,22 @@
-import React from 'react'
 import { BsPencilSquare } from 'react-icons/bs';
 import { MdPhoto } from "react-icons/md";
 import { RiVideoFill } from "react-icons/ri";
 import { FaRegCalendarCheck } from "react-icons/fa";
 import { RiArticleLine } from "react-icons/ri";
 import FeedItemIcons from './FeedItemIcons';
+import Post from './Post';
+import React, { useState } from 'react'
+
+
+
+
 
 function PostInput() {
+  const [posts, setPosts] = useState([]);
+
+  const [input, setInput] = useState("");
+  
+  
     return (
         <>
         <div className="flex-grow-0.6">
@@ -15,8 +25,8 @@ function PostInput() {
                 <BsPencilSquare className="text-gray-500 mx-1 cursor-pointer " />
                 <div className="">
             <form className="">
-                <input type="text" placeholder="Start a post!"className="   border-none flex-grow ml-2 pr-48 outline-none font-medium text cursor-pointer  group-hover:bg-gray-100 transition delay-50 " />
-                <button className="hidden" type="submit">Send</button>
+                <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Start a post!"  className="   border-none flex-grow ml-2 pr-48 outline-none font-medium text cursor-pointer  group-hover:bg-gray-100 transition delay-50 " />
+                <button className="hidden" type="submit" >Send</button>
             </form>
             </div>
             </div>
@@ -35,8 +45,12 @@ function PostInput() {
             />
           </div>
         </div>
+        <Post/> 
+        
+
         
         </div>
+        
             
         </>
     )

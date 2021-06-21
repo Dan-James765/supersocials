@@ -4,13 +4,12 @@ import { AiOutlineLike } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { GiShare } from "react-icons/gi";
 import { MdSend } from "react-icons/md";
-import React, { forwardRef } from "react";
 import { Avatar } from "@material-ui/core";
 
-const Post = forwardRef(({ name, description, message }, ref) => {
+function Post ({ name, description, message, photoUrl }) {
   return (
     <>
-      <div ref={ref} className="bg-white w-w-140 py-4 rounded-lg pl-4 my-4 border shadow-lg ">
+      <div  className="bg-white w-w-140 py-4 rounded-lg pl-4 my-4 border shadow-lg ">
         <div className="flex mb-2 ">
         <Avatar src="https://scontent.flhr3-3.fna.fbcdn.net/v/t1.6435-9/38781010_2579432842082139_3002868557282279424_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=asaBcCZ6MhkAX-ltZTU&tn=PE0_JBPglr_ujwNN&_nc_ht=scontent.flhr3-3.fna&oh=a3f2fde494ed325952e3065bc7bae2c4&oe=60D30D14"/>
           <div className="ml-2">
@@ -36,7 +35,7 @@ const Post = forwardRef(({ name, description, message }, ref) => {
       </div>
     </>
   );
-});
+};
 
 export default Post;
 
