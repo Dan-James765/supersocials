@@ -6,13 +6,17 @@ import { BiGroup} from 'react-icons/bi';
 import { BsQuestionOctagonFill} from 'react-icons/bs';
 import { BsBookmarkFill} from 'react-icons/bs';
 import { Avatar } from "@material-ui/core";
+import { useSelector } from 'react-redux';
+import { selectUser } from '../features/userSlice';
 
 
 function Sidebar() {
+
+    const user = useSelector(selectUser)
     return (
         <>
-        <div className="flex-grow-0.2 w-2/12">
-        <div className="py-4 px-4 border shadow-lg">
+        <div className="flex-grow-0.2 w-2/12 ">
+        <div className="py-4 px-4 border shadow-lg rounded-lg">
             <div className="flex flex-col text-gray-500  ">
                 <h1 className="flex gap-x-1 cursor-pointer py-1 hover:bg-gray-200 transition delay-90 px-2 hover:text-gray-900"> <MdRssFeed  className=" my-1"/> Feed</h1>
                 <h1  className="flex gap-x-1 cursor-pointer py-1 hover:bg-gray-200 transition delay-90 px-2 hover:text-gray-900"><BsFillChatSquareDotsFill className=" my-1"/> Chats  </h1>
@@ -27,11 +31,17 @@ function Sidebar() {
             <hr className="  border-gray-300  m-auto border my-2" />
           <div >
               <div className="flex  hover:bg-gray-200 transition delay-90 rounded-full px-2 py-1 cursor-pointer">
-          <Avatar src="https://scontent.flhr3-3.fna.fbcdn.net/v/t1.6435-9/38781010_2579432842082139_3002868557282279424_n.jpg?_nc_cat=111&ccb=1-3&_nc_sid=09cbfe&_nc_ohc=asaBcCZ6MhkAX-ltZTU&tn=PE0_JBPglr_ujwNN&_nc_ht=scontent.flhr3-3.fna&oh=a3f2fde494ed325952e3065bc7bae2c4&oe=60D30D14"/>
-          <h1 className="pt-2 pl-2 font-semibold  ">Dan James</h1>
+        <Avatar src={user.photoURL}>
+        {user.displayName[0]} 
+        </Avatar>
+
+
+          <h1 className="pt-2 pl-2 font-semibold  ">{user.displayName}</h1>
           </div>
               <div className="flex  hover:bg-gray-200 transition delay-90 rounded-full px-2 py-1 cursor-pointer">
           <Avatar src="https://media.istockphoto.com/photos/portrait-of-smiling-handsome-man-in-blue-tshirt-standing-with-crossed-picture-id1045886560?k=6&m=1045886560&s=612x612&w=0&h=hXrxai1QKrfdqWdORI4TZ-M0ceCVakt4o6532vHaS3I="/>
+          
+          
           <h1 className="pt-2 pl-2 font-semibold  ">Joe Bloggs</h1>
           </div>
               <div className="flex  hover:bg-gray-200 transition delay-90 rounded-full px-2 py-1 cursor-pointer">

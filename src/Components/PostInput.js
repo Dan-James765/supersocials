@@ -6,19 +6,18 @@ import { RiArticleLine } from "react-icons/ri";
 import FeedItemIcons from './FeedItemIcons';
 import Post from './Post';
 import React, { useEffect, useState } from 'react'
-
 import firebase from "firebase";
 import { db } from './firebase';
-
-
-
-
+import { selectUser } from '../features/userSlice';
+import { useSelector } from 'react-redux';
+import FlipMove from 'react-flip-move'
 
 
 
 function PostInput() {
   const [posts, setPosts] = useState([]);
   const [input, setInput] = useState("");
+  const user = useSelector(selectUser)
 
 
   useEffect(() => {
@@ -38,10 +37,10 @@ function PostInput() {
     e.preventDefault();
   
     db.collection("posts").add({
-      name: "user.displayName",
-      description: "user.email",
+      name: user.displayName,
+      description: user.email,
       message: input,
-      photoUrl: "",
+      photoURL: user.photoURL || "",
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       
     });
@@ -52,13 +51,13 @@ function PostInput() {
   
     return (
         <>
-        <div className="flex-grow-0.6">
+        <div className="">
         <div className="w-w-140  py-4 rounded-lg flex flex-col shadow-lg border ">
             <div className=" cursor-pointer border rounded-full flex items-center py-3  group-hover:bg-gray-100 transition delay-50  ">
                 <BsPencilSquare className="text-gray-500 mx-1 cursor-pointer " />
-                <div className="">
+                <div className="w-80">
             <form className="">
-                <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Start a post!"  className="   border-none flex-grow ml-2 pr-48 outline-none font-medium text cursor-pointer  group-hover:bg-gray-100 transition delay-50 " />
+                <input value={input} onChange={(e) => setInput(e.target.value)} type="text" placeholder="Start a post!"  className="  border-none flex-grow ml-2 pr-48 outline-none font-medium text cursor-pointer   " />
                 <button className="hidden" onClick={sendPost}  type="submit" >Send</button>
             </form>
             </div>
@@ -78,17 +77,19 @@ function PostInput() {
             />
           </div>
         </div>
+        <FlipMove>
         {posts.map(
-            ({ id, data: { name, description, message, photoUrl } }) => (
+            ({ id, data: { name, description, message, photoURL } }) => (
               <Post
                 key={id}
                 name={name}
                 description={description}
                 message={message}
-                photoUrl={photoUrl}
+                photoURL={photoURL}
               />
             )
           )}
+          </FlipMove>
 
         
 
